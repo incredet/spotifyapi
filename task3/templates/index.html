@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div><h1>Spotify! Hello, {{ name }}</h1></div>
+<form action="/map" method="POST">
+    <div class="group_form">
+      <input type="text" class="form-control" id="exampleInputEmail1" 
+      aria-describedby="emailHelp" placeholder="artist's name" name="artist_name">
+      <div id="emailHelp" class="form-text">enter artist's name</div>
+    </div>
+    <button type="submit" class="button">See the artist</button>
+  </form>
+{% endblock %}
