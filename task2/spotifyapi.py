@@ -126,8 +126,24 @@ def object_is_list(obj):
 
 def object_is_object(obj):
     """ """
-    pass
-
+    print("the requested object is a object")
+    print("available options:")
+    ignore = ['disc_number', 'uri', 'type', 'is_local',\
+ 'href', 'external_urls', 'external_ids', 'preview_url']
+    keyys = [item for item in list(obj.keys()) if item not in ignore]
+    for indx, keyy in enumerate(keyys):
+        print(f"{indx + 1}. {keyy}")
+    try:
+        indx = int(input())
+        rec = obj[keyys[indx - 1]]
+        if isinstance(rec, list):
+            object_is_list(rec)
+        elif isinstance(rec, dict):
+            object_is_object(rec)
+        else:
+            print(rec)
+    except ValueError:
+        return None
 
 if __name__ == "__main__":
 
@@ -160,7 +176,7 @@ if __name__ == "__main__":
                 if isinstance(request, list):
                     object_is_list(request)
                 elif isinstance(request, dict):
-                    print('developing')
+                    object_is_object(request)
                 else:
                     print(request)
             elif index == 5:
@@ -174,14 +190,12 @@ if __name__ == "__main__":
                 available_markets(track)
             elif index == 8:
                 albums = artist_albums(token, artist_id)
-                for idx, album in enumerate(albums):
+                for idx, album in enumerate(albums[::-1]):
                     print(f"{idx + 1}. {album['name']}")
-
+            elif index == 9:
+                track = search_track(token, songs[0]["name"])
+                object_is_object(track)
             print("press Enter to end or input the next artist")
-            # print(result)
-            # print(songs)
-            # for idx, song in enumerate(songs):
-            #     print(f"{idx + 1}. {song['name']}")
         except KeyError:
             break
         except AttributeError:
