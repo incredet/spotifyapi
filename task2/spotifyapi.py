@@ -88,6 +88,15 @@ def available_markets(track):
     object_is_list(markets)
     return None
 
+
+def artist_albums(token, artist_id):
+    """ """
+    url = f'https://api.spotify.com/v1/artists/{artist_id}/albums'
+    header = get_auth_header(token)
+    result = requests.get(url, headers = header)
+    json_result = json.loads(result.content)['items']
+    return json_result
+
 def track_info(token, track_id):
     """ """
     url = f"https://api.spotify.com/v1/audio-analysis/{track_id}"
@@ -112,6 +121,7 @@ def object_is_list(obj):
             return None
         except ValueError:
             break
+    return None
 
 
 def object_is_object(obj):
@@ -148,7 +158,7 @@ if __name__ == "__main__":
             if index < 5:
                 request = result[keys[index - 1]]
                 if isinstance(request, list):
-                    print('developing')
+                    object_is_list(request)
                 elif isinstance(request, dict):
                     print('developing')
                 else:
@@ -161,11 +171,12 @@ if __name__ == "__main__":
                     print(f"{idx + 1}. {song['name']}")
             elif index == 7:
                 track = search_track(token, songs[0]["name"])
-                id_track = result["id"]
                 available_markets(track)
-            elif index >= 8:
-                print("developing")
-     
+            elif index == 8:
+                albums = artist_albums(token, artist_id)
+                for idx, album in enumerate(albums):
+                    print(f"{idx + 1}. {album['name']}")
+
             print("press Enter to end or input the next artist")
             # print(result)
             # print(songs)
