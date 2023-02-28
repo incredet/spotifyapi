@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request
 
-
 views = Blueprint(__name__, "views")
 
 @views.route("/")
@@ -12,6 +11,7 @@ def songmap():
     artist_name = request.form.get("artist_name")
     return render_template("index.html", name = artist_name)
 
-
-def create_map():
-    pass
+# @views.route("/map", methods = ["POST"])
+# def create_map():
+#     movies_map = folium.Map(zoom_start=5)
+#     return "map.html"
