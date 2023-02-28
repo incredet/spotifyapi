@@ -162,7 +162,8 @@ if __name__ == "__main__":
                 "most popular song", "top ten tracks",
                 "available markets(the most popular song)",
                 "albums",
-                "info about most popular song"
+                "info about most popular song",
+                "exit"
             ]
             for idx, key in enumerate(keys):
                 print(f"{idx + 1}. {key}")
@@ -195,6 +196,9 @@ if __name__ == "__main__":
             elif index == 9:
                 track = search_track(token, songs[0]["name"])
                 object_is_object(track)
+            elif index == 10:
+                print("bye-bye!")
+                break
             print("press Enter to end or input the next artist")
         except KeyError:
             break
