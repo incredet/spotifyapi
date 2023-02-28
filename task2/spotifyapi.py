@@ -67,7 +67,6 @@ def search_track(token, track_name):
     result = requests.get(query_url, headers = header)
 
     json_result = json.loads(result.content)['tracks']['items']
-    print(json_result[0].keys())
     if len(json_result) == 0:
         print("sorry... that's too underground for spotify")
         return None
