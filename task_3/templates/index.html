@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div><h1>This is Spotify! Enter artist's name to see who didn't ban rusnia</h1></div>
+<br/>
+<br/>
+<form action="/map" method="POST">
+    <div class="group_form">
+      <table>
+        <p class="subtext">Use this form to submit a search request:</p>
+        <tr><td><input type="text" value="RHCP" width='100' class="form-control" placeholder="artist's name" name="artist_name"></td></tr>
+      </table>
+    </div>
+    <br/>
+    <p class = "subtext">When you're ready, click this button:</p>
+    <p><input value='Do it!' type='SUBMIT' class = "submit"></p>
+  </form>
+{% endblock %}
