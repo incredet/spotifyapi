@@ -1,5 +1,5 @@
 from flask import Flask
-from views import views
+from blueprint import views
 
 app = Flask(__name__)
 

@@ -1,5 +1,4 @@
 import folium
-import json
 import pycountry
 import pandas as pd
 from geopy.geocoders import Nominatim
@@ -11,12 +10,17 @@ def av_marks(artist_name: str) -> list:
     token = get_token()
     artist_id = search_for_artist(token, artist_name)["id"]
     top_song = get_top_songs(token, artist_id)[0]["name"]
-    return list(search_track(token, top_song)['album']['available_markets'])
+    return [list(search_track(token, top_song)['album']['available_markets'])] + [[top_song]]
 
 
-def format_country(countries: list):
+def format_country(counts: list):
     """ """
-    pass
+    names = []
+    for count in counts:
+        country = pycountry.countries.get(alpha_2 = count)
+        if country:
+            names += [country.name]
+    return names
 
 
 def find_coords(path: str) -> None:
@@ -42,15 +46,18 @@ def coords_from_csv(path: str, names: str):
     return locs
 
 
-def create_map(locs):
+def create_map(artist_name):
     """ """
-    music_map = folium.Map(zoom_start=5)
+    countries, track_name = av_marks(artist_name)
+    names = format_country(countries)
+    locs = coords_from_csv("task_3/coords.csv", names)
+    music_map = folium.Map(zoom_start=10)
+    html = """<h4>Track name: {}</h4>
+    <h4>Country name: {}</h4>
+    """
     for loc in locs:
-        music_map.add_child(folium.Marker(location=[loc[-2], loc[-1]]))
-        music_map.save("Map_Marker_irynka2.html")
+        iframe = folium.IFrame(html=html.format(track_name[0], loc[1].strip()), width=200, height=50)
+        music_map.add_child(folium.Marker(location=[loc[-2], loc[-1]],\
+            icon=folium.Icon(icon='star', color = 'lightgreen'), popup = folium.Popup(iframe)))
+        music_map.save("task_3/templates/available_markets.html")
 
-names = ["Ukraine", "Poland"]
-
-create_map(coords_from_csv("task_3/coords.csv", names))
-
-# print(av_marks("Taylor Swift"))
