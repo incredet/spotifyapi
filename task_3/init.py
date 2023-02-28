@@ -1,3 +1,5 @@
+""" initialize file
+"""
 from flask import Flask
 from blueprint import views
 

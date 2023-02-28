@@ -34,12 +34,14 @@ def get_token():
 
 
 def get_auth_header(token):
-    """ """
+    """ this func gets header
+    """
     return {"Authorization": "Bearer " + token}
 
 
 def search_for_artist(token, artist_name):
-    """ """
+    """ this func searches for artist
+    """
     url = "https://api.spotify.com/v1/search"
 
     header = get_auth_header(token)
@@ -57,7 +59,8 @@ def search_for_artist(token, artist_name):
 
 
 def search_track(token, track_name):
-    """ """
+    """ this func searches for tracks
+    """
     url = url = "https://api.spotify.com/v1/search"
 
     header = get_auth_header(token)
@@ -73,7 +76,8 @@ def search_track(token, track_name):
     return json_result[0]
 
 def get_top_songs(token, artist_id):
-    """ """
+    """ this func gets top songs
+    """
     url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=UA"
     header = get_auth_header(token)
     result = requests.get(url, headers = header)
@@ -82,14 +86,16 @@ def get_top_songs(token, artist_id):
 
 
 def available_markets(track):
-    """ """
+    """ this func searches available markets
+    """
     markets = track['album']['available_markets']
     object_is_list(markets)
     return None
 
 
 def artist_albums(token, artist_id):
-    """ """
+    """ this func searches for artists albums
+    """
     url = f'https://api.spotify.com/v1/artists/{artist_id}/albums'
     header = get_auth_header(token)
     result = requests.get(url, headers = header)
@@ -97,7 +103,8 @@ def artist_albums(token, artist_id):
     return json_result
 
 def track_info(token, track_id):
-    """ """
+    """ this func searches for info about track
+    """
     url = f"https://api.spotify.com/v1/audio-analysis/{track_id}"
     header = get_auth_header(token)
     result = requests.get(url, headers = header)
@@ -107,7 +114,8 @@ def track_info(token, track_id):
 
 
 def object_is_list(obj):
-    """ """
+    """ in case object is list
+    """
     print("requested object is a list. enter an index of press -1 to see all values")
     while True:
         try:
@@ -124,7 +132,8 @@ def object_is_list(obj):
 
 
 def object_is_object(obj):
-    """ """
+    """ in case object is object
+    """
     print("the requested object is a object")
     print("available options:")
     ignore = ['disc_number', 'uri', 'type', 'is_local',\
